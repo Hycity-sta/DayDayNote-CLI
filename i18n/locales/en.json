@@ -1,0 +1,9 @@
+{
+  "app.name": "daydaynote",
+  "root.short": "daydaynote is a small CLI app built with Cobra",
+  "root.long": "daydaynote is a small CLI app built with Cobra. Put each command in cmd/ for easy maintenance.",
+  "flag.lang": "Language for CLI output: zh or en",
+  "cmd.version.use": "version",
+  "cmd.version.short": "Print the app version",
+  "msg.version": "daydaynote %s\n"
+}
