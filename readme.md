@@ -5,19 +5,22 @@ daydaynote 是一个用于记录日常生活的 Go 命令行工具，使用 [Cob
 ## 可用命令
 
 ```bash
-go run . version
-go run . help
-go run . lang zh
-go run . add 吃了个汉堡
-go run . list
-go run . list --date=2026/4/14
-go run . delete 1
-go run . delete 1 --date=2026-4-14
-go run . edit 1 吃了两个汉堡
-go run . edit 1 吃了两个汉堡 --date=2026/4/14
+daydaynote version
+daydaynote --help
+daydaynote lang zh
+daydaynote add 吃了个汉堡
+daydaynote list
+daydaynote list --date=2026/4/14
+daydaynote delete 1
+daydaynote delete 1 --date=2026-4-14
+daydaynote edit 1 吃了两个汉堡
+daydaynote edit 1 吃了两个汉堡 --date=2026/4/14
 ```
 
-`help` 命令只能不带参数使用，用于查看 `daydaynote` 的总帮助信息。
+`list` 默认只查看当天内容；加上 `--date` 后，可以查看指定日期的数据。
+日期支持 `YYYY/M/D` 和 `YYYY-MM-DD` 两种格式。
+
+如果你还在开发调试阶段，也可以把上面的 `daydaynote` 替换成 `go run .` 使用。
 
 ## 构建
 
