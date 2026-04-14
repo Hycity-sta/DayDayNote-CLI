@@ -1,11 +1,12 @@
 # daydaynote
 
-这是一个使用 [Cobra](https://github.com/spf13/cobra) 搭建的 Go CLI 项目。
+daydaynote 是一个用于记录日常生活的 Go 命令行工具，使用 [Cobra](https://github.com/spf13/cobra) 搭建。
 
 ## 可用命令
 
 ```bash
 go run . version
+go run . help
 go run . lang zh
 go run . add 吃了个汉堡
 go run . list
@@ -15,6 +16,8 @@ go run . delete 1 --date=2026-4-14
 go run . edit 1 吃了两个汉堡
 go run . edit 1 吃了两个汉堡 --date=2026/4/14
 ```
+
+`help` 命令只能不带参数使用，用于查看 `daydaynote` 的总帮助信息。
 
 ## 构建
 
@@ -29,3 +32,11 @@ go build -o bin/daydaynote.exe
 ## 语言文件
 
 语言资源通过 `embed` 打包在 `i18n/locales/en.json` 和 `i18n/locales/zh.json` 中，启动时会自动加载。
+
+## 开发帮助
+
+见`attention.md`文件。
+
+## todo
+
+- 将command里面的Run/RunE抽离出来，而不是嵌套一大坨函数
