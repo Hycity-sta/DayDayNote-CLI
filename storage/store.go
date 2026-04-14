@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
-	"path/filepath"
 	"sync"
 	"time"
 )
@@ -112,7 +111,7 @@ func (s *Store) Replace(records []Record) error {
 
 // 确保目标文件所在的父目录存在
 func ensureParentDir(path string) error {
-	dir := filepath.Dir(path)
+	dir := filepathDir(path)
 	if dir == "." || dir == "" {
 		return nil
 	}
@@ -123,20 +122,12 @@ func ensureParentDir(path string) error {
 func dataDir() string {
 	exe, err := os.Executable()
 	if err != nil {
-		return filepath.Clean("data")
+		return filepathClean("data")
 	}
 
-	return filepath.Join(filepath.Dir(exe), "data")
+	return filepathJoin(filepathDir(exe), "data")
 }
 
-// 默认存储路径按“data/年/月.jsonl”组织，
-// 例如：data/2026/04.jsonl。
 func defaultDataPath() string {
-	now := time.Now()
-
-	return filepath.Join(
-		dataDir(),
-		now.Format("2006"),
-		now.Format("01")+".jsonl",
-	)
+	return dataPathForDate(time.Now())
 }

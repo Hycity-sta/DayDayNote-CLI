@@ -5,6 +5,7 @@ import (
 
 	"daydaynote/config"
 	"daydaynote/i18n"
+	"daydaynote/utils"
 
 	"github.com/spf13/cobra"
 )
@@ -12,9 +13,9 @@ import (
 // lang 命令
 func Lang() *cobra.Command {
 	return &cobra.Command{
-		Use:   i18n.T("cmd.lang.use"),
-		Short: i18n.T("cmd.lang.short"),
-		Args:  cobra.ExactArgs(1),
+		Use:   i18n.T(i18n.CmdLangUse),
+		Short: i18n.T(i18n.CmdLangShort),
+		Args:  utils.ExactArgs(1),
 		RunE:  LangHandle,
 	}
 }
@@ -29,7 +30,7 @@ func LangHandle(cmd *cobra.Command, args []string) error {
 func ApplyLanguage(lang string) error {
 	// 先校验传入的语言是否在支持范围内。
 	if !config.IsSupportedLanguage(lang) {
-		return fmt.Errorf(i18n.T("err.lang.unsupported"), lang)
+		return fmt.Errorf(i18n.T(i18n.ErrLangUnsupported), lang)
 	}
 
 	// 先更新当前进程里的语言，保证后续提示信息立即生效。
@@ -41,6 +42,6 @@ func ApplyLanguage(lang string) error {
 	}
 
 	// 配置写入成功后，输出设置完成提示。
-	fmt.Printf(i18n.T("msg.lang.set"), lang)
+	fmt.Printf(i18n.T(i18n.MsgLangSet), lang)
 	return nil
 }
