@@ -22,6 +22,9 @@ func main() {
 		Long:  i18n.T(i18n.RootLong),
 	}
 
+	// 关闭自带的completion选项
+	rootCmd.CompletionOptions.DisableDefaultCmd = true
+
 	// 挂载子命令
 	rootCmd.AddCommand(cmd.Add())
 	rootCmd.AddCommand(cmd.List())
@@ -29,7 +32,8 @@ func main() {
 	rootCmd.AddCommand(cmd.Edit())
 	rootCmd.AddCommand(cmd.Lang())
 	rootCmd.AddCommand(cmd.Version())
-	cmd.ConfigureHelp(rootCmd)
+
+	rootCmd.SetHelpCommand(cmd.Help())
 
 	// 处理错误
 	if err := rootCmd.Execute(); err != nil {
