@@ -1,0 +1,17 @@
+# 构建产物
+/bin/
+
+# 运行时数据
+/data/
+lang.json
+
+# Go 覆盖率文件
+*.out
+coverage.*
+
+# 编辑器和系统临时文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

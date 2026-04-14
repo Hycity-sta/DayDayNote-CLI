@@ -2,8 +2,11 @@
   "app.name": "daydaynote",
   "root.short": "daydaynote 是一个基于 Cobra 的轻量命令行工具",
   "root.long": "daydaynote 是一个基于 Cobra 的轻量命令行工具。",
-  "flag.lang": "CLI 输出语言，可选 zh 或 en",
+  "cmd.lang.use": "lang [language]",
+  "cmd.lang.short": "设置默认 CLI 语言",
   "cmd.version.use": "version",
   "cmd.version.short": "输出版本信息",
+  "err.lang.unsupported": "不支持的语言：%s",
+  "msg.lang.set": "默认语言已设置为 %s\n",
   "msg.version": "daydaynote %s\n"
 }
