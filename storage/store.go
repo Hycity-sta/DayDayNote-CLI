@@ -7,32 +7,31 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+	"time"
 )
 
-const defaultDataFile = "bin/data/daydaynote.jsonl"
-
-// Store persists notes in JSONL format, one JSON object per line.
+// Store 负责把便签持久化到 JSONL 文件中，每行保存一条 JSON 记录。
 type Store struct {
 	path string
 	mu   sync.Mutex
 }
 
-// NewStore creates a store backed by the given file path.
+// NewStore 根据指定文件路径创建一个存储实例。
 func NewStore(path string) *Store {
 	return &Store{path: path}
 }
 
-// DefaultStore returns the repository-local JSONL store.
+// DefaultStore 返回默认存储，文件位于 exe 同级的 data 目录下。
 func DefaultStore() *Store {
-	return NewStore(defaultDataFile)
+	return NewStore(defaultDataPath())
 }
 
-// Path returns the underlying file path.
+// Path 返回当前存储使用的文件路径。
 func (s *Store) Path() string {
 	return s.path
 }
 
-// Append adds a note as a single JSONL row.
+// Append 将一条便签追加写入 JSONL 文件末尾。
 func (s *Store) Append(note Note) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -51,7 +50,7 @@ func (s *Store) Append(note Note) error {
 	return enc.Encode(note)
 }
 
-// List reads every note from the JSONL file.
+// List 读取 JSONL 文件中的所有便签。
 func (s *Store) List() ([]Note, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -80,7 +79,7 @@ func (s *Store) List() ([]Note, error) {
 	return notes, nil
 }
 
-// Replace rewrites the entire JSONL file with the provided notes.
+// Replace 用给定的便签列表整体重写 JSONL 文件。
 func (s *Store) Replace(notes []Note) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -111,10 +110,30 @@ func (s *Store) Replace(notes []Note) error {
 	return os.Rename(tmpPath, s.path)
 }
 
+// ensureParentDir 确保目标文件所在的父目录存在。
 func ensureParentDir(path string) error {
 	dir := filepath.Dir(path)
 	if dir == "." || dir == "" {
 		return nil
 	}
 	return os.MkdirAll(dir, 0o755)
+}
+
+// dataDir 返回 exe 同级的 data 目录；如果无法获取 exe，就退回到当前目录下的 data。
+func dataDir() string {
+	exe, err := os.Executable()
+	if err != nil {
+		return filepath.Clean("data")
+	}
+
+	return filepath.Join(filepath.Dir(exe), "data")
+}
+
+func defaultDataPath() string {
+	now := time.Now()
+	return filepath.Join(
+		dataDir(),
+		now.Format("2006"),
+		now.Format("01")+".jsonl",
+	)
 }
