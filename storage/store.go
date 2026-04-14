@@ -129,8 +129,11 @@ func dataDir() string {
 	return filepath.Join(filepath.Dir(exe), "data")
 }
 
+// 默认存储路径按“data/年/月.jsonl”组织，
+// 例如：data/2026/04.jsonl。
 func defaultDataPath() string {
 	now := time.Now()
+
 	return filepath.Join(
 		dataDir(),
 		now.Format("2006"),
