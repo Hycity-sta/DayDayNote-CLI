@@ -1,7 +1,7 @@
 {
   "app.name": "daydaynote",
-  "root.short": "daydaynote 是一个基于 Cobra 的轻量命令行工具",
-  "root.long": "daydaynote 是一个基于 Cobra 的轻量命令行工具。",
+  "root.short": "daydaynote 用于记录日常生活",
+  "root.long": "daydaynote 是一个用于记录日常生活的命令行工具",
   "cmd.add.use": "add [content...]",
   "cmd.add.short": "追加一条新的笔记记录",
   "cmd.list.use": "list",
@@ -10,7 +10,7 @@
   "cmd.delete.short": "删除指定日期中的某条记录",
   "cmd.edit.use": "edit [index] [content...]",
   "cmd.edit.short": "编辑指定日期中的某条记录",
-  "cmd.help.use": "help [command]",
+  "cmd.help.use": "help",
   "cmd.help.short": "显示命令帮助信息",
   "cmd.lang.use": "lang [language]",
   "cmd.lang.short": "设置默认 CLI 语言",
